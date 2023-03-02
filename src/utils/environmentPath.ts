@@ -45,7 +45,7 @@ export class Environment {
 
 	public FILE_CLOUDSETTINGS_NAME: string = 'cloudSettings';
 
-	public FOLDER_SNIPPETS?: string;
+	public FOLDER_SNIPPETS: string;
 
 	constructor(context: vscode.ExtensionContext) {
 		context.globalState.update('_', undefined); // Make sure the global state folder exists. This is needed for using this.context.globalStoragePath to access user folder

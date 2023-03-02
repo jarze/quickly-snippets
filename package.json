@@ -10,9 +10,6 @@
 	"categories": [
 		"Other"
 	],
-	"activationEvents": [
-		"onView:snippets.explorer"
-	],
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
@@ -22,15 +19,40 @@
 				"icon": "$(refresh)"
 			},
 			{
-				"command": "fileExplorer.openFile",
+				"command": "snippets.openFile",
 				"title": "Open File"
+			},
+			{
+				"command": "snippets.addFile",
+				"title": "Add File",
+				"icon": "$(new-file)"
+			},
+			{
+				"command": "snippets.addFolder",
+				"title": "Add Folder",
+				"icon": "$(new-folder)"
+			},
+			{
+				"command": "snippets.editEntry",
+				"title": "Edit",
+				"icon": "$(edit)"
+			},
+			{
+				"command": "snippets.deleteEntry",
+				"title": "Delete",
+				"icon": "$(delete)"
+			},
+			{
+				"command": "snippets.generateFile",
+				"title": "Snippets: Generate",
+				"category": "Snippets"
 			}
 		],
 		"viewsContainers": {
 			"activitybar": [
 				{
 					"id": "snippets-explorer",
-					"title": "Snippets Explorer",
+					"title": "Snippets 管理",
 					"icon": "$(symbol-snippet)"
 				}
 			]
@@ -45,11 +67,52 @@
 			]
 		},
 		"menus": {
+			"explorer/context": [
+				{
+					"when": "!explorerResourceIsFolder",
+					"command": "snippets.generateFile",
+					"group": "6_copypath"
+				}
+			],
+			"editor/context": [
+				{
+					"when": "editorHasSelection",
+					"command": "snippets.generateFile",
+					"group": "1_modification"
+				}
+			],
 			"view/title": [
 				{
 					"command": "snippets.refreshEntry",
 					"when": "view == snippets.explorer",
 					"group": "navigation"
+				},
+				{
+					"command": "snippets.addFolder",
+					"when": "view == snippets.explorer",
+					"group": "navigation"
+				},
+				{
+					"command": "snippets.addFile",
+					"when": "view == snippets.explorer",
+					"group": "navigation"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "snippets.editEntry",
+					"when": "view == snippets.explorer && viewItem == snippets",
+					"group": "inline"
+				},
+				{
+					"command": "snippets.deleteEntry",
+					"when": "view == snippets.explorer && viewItem == snippets"
+				},
+				{
+					"command": "snippets.addFile",
+					"when": "view == snippets.explorer && viewItem == snippetsDir",
+					"group": "inline",
+					"icon": "$(plus)"
 				}
 			]
 		}
@@ -63,16 +126,19 @@
 		"test": "node ./out/test/runTest.js"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.75.0",
 		"@types/glob": "^8.0.1",
 		"@types/mocha": "^10.0.1",
 		"@types/node": "16.x",
+		"@types/vscode": "^1.75.0",
 		"@typescript-eslint/eslint-plugin": "^5.49.0",
 		"@typescript-eslint/parser": "^5.49.0",
+		"@vscode/test-electron": "^2.2.2",
 		"eslint": "^8.33.0",
 		"glob": "^8.1.0",
 		"mocha": "^10.1.0",
-		"typescript": "^4.9.4",
-		"@vscode/test-electron": "^2.2.2"
+		"typescript": "^4.9.4"
+	},
+	"dependencies": {
+		"mkdirp": "^2.1.3"
 	}
 }

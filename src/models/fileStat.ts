@@ -2,7 +2,17 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 
 export class FileStat implements vscode.FileStat {
-	constructor(private fsStat: fs.Stats) {}
+	private _content?: string;
+	private fsStat: fs.Stats;
+	constructor(public filePath: string) {
+		this.fsStat = fs.statSync(filePath);
+	}
+	get content() {
+		if (!this._content) {
+			this._content = fs.readFileSync(this.filePath, 'utf-8');
+		}
+		return this._content;
+	}
 
 	get type(): vscode.FileType {
 		return this.fsStat.isFile()
@@ -16,6 +26,9 @@ export class FileStat implements vscode.FileStat {
 
 	get isFile(): boolean | undefined {
 		return this.fsStat.isFile();
+	}
+	get uri(): vscode.Uri {
+		return vscode.Uri.file(this.filePath);
 	}
 
 	get isDirectory(): boolean | undefined {
