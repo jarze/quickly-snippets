@@ -51,7 +51,9 @@ export class SnippetsExplorer {
 			const document = editor?.document;
 			if (document) {
 				// Get the word within the selection
-				const word = document.getText(editor.selection);
+				const word = editor.selection.isEmpty
+					? document.getText()
+					: document.getText(editor.selection);
 				const params = {
 					scope: document.languageId,
 					body: word,
