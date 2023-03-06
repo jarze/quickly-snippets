@@ -8,6 +8,11 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 - Initial release
 
+## 1.0.0 - 2023-03-06
+### Fixed
+
+ - Generate snippet from file
+
 ## 1.0.0 - 2023-03-03
 ### Added
 

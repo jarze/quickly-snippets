@@ -2,7 +2,7 @@
 	"name": "quickly-snippets",
 	"displayName": "Quickly Snippets",
 	"description": "Generate snippets quickly and easily.",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"publisher": "jarze",
 	"engines": {
 		"vscode": "^1.75.0"
